@@ -1,5 +1,6 @@
 # tiny-progress(网页顶部进度条)
-
+## Preview(预览)
+http://output.jsbin.com/lokiro
 ## usage（使用）
 ```javascript
 <script src="tiny-progress.js"></script>
