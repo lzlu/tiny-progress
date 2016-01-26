@@ -40,25 +40,16 @@ var porgressbar = (function() {
       this.addevent();
     },
     scroll: function() {
-      var orginBody = document.body;
-      var bodyHeight = orginBody.scrollHeight; //页面高度
-      var scrollTop = orginBody.scrollTop; //可视区域距顶部高度
-      var clientHeight = document.documentElement.clientHeight; //可视化区域高度(屏幕高度)
-      var distance = 0;
-      var leftDistance = bodyHeight - scrollTop;
-      if (clientHeight + 200 <= bodyHeight) {
-        distance = leftDistance;
-        if (leftDistance <= clientHeight + 20) {
-          distance = 0;
-        }
-      } else {
-        distance = scrollTop < clientHeight ?leftDistance: leftDistance - clientHeight;
-      }
-      distance = 100 - distance/bodyHeight *100;
-      log(distance);
-      css(document.getElementById("tiny-porgress"), {
-        "width": distance.toFixed(2) + "%"
-      });
+      var orginBody = document.body,
+          bodyHeight = orginBody.scrollHeight, //页面高度
+          scrollTop = orginBody.scrollTop, //可视区域距顶部高度
+          clientHeight = document.documentElement.clientHeight, //可视化区域高度(屏幕高度)
+          bodyDistance  = bodyHeight - clientHeight,
+          leftDistance = bodyDistance - scrollTop,
+          distance = (100 - leftDistance/bodyDistance *100).toFixed(2) ;
+          css(document.getElementById("tiny-porgress"), {
+              "width": distance+ "%"
+        });
     },
     addevent: function() {
       var _this = this;
