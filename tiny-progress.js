@@ -28,7 +28,7 @@ var porgressbar = (function() {
     render: function(config) {
       var body = document.getElementsByTagName("body")[0];
       var parent = document.createElement("div");
-      parent.id = "porgress-container";
+      parent.id = "tiny-porgress";
       body.appendChild(parent);
       css(parent, config);
       css(parent, {
@@ -45,17 +45,18 @@ var porgressbar = (function() {
       var scrollTop = orginBody.scrollTop; //可视区域距顶部高度
       var clientHeight = document.documentElement.clientHeight; //可视化区域高度(屏幕高度)
       var distance = 0;
+      var leftDistance = bodyHeight - scrollTop;
       if (clientHeight + 200 <= bodyHeight) {
-        distance = 100 - (bodyHeight - scrollTop) / bodyHeight * 100;
-        if (bodyHeight <= scrollTop + clientHeight + 20) {
-          distance = 100;
+        distance = leftDistance;
+        if (leftDistance <= clientHeight + 20) {
+          distance = 0;
         }
       } else {
-        distance = scrollTop < clientHeight ? 100 - (bodyHeight - scrollTop) / bodyHeight * 100 : 100 - (bodyHeight - scrollTop - clientHeight) / bodyHeight * 100;
+        distance = scrollTop < clientHeight ?leftDistance: leftDistance - clientHeight;
       }
-      var parent = document.getElementById("porgress-container");
-      console.log(distance.toFixed(2));
-      css(parent, {
+      distance = 100 - distance/bodyHeight *100;
+      log(distance);
+      css(document.getElementById("tiny-porgress"), {
         "width": distance.toFixed(2) + "%"
       });
     },
